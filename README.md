@@ -2,5 +2,6 @@
 Black Jack Game in JavaScript
 Hot to use?
 Download files and catalogs and open index.html
+Your target is 21.
+If you have less values in cards but more than your opponent you'll be winner. By if you're have more you loose.
 
-This version is very soon, don't have time to prepare cards graphic.
