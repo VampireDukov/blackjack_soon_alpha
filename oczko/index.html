@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Gra w oczko</title>
+	<meta charset="utf-8">.
+	<link rel="stylesheet" type="text/css" href="styles/css.css">
+</head>
+<body>
+<header>
+
+	<h1>Gra w oczko, traf łączną liczbę 21, aby wygrać!</h1>
+
+</header>	
+
+<section id="content">
+	<button id="click">Wybierz kartę!</button>
+	<button id="check">Sprawdź!</button>	
+</section>
+
+<script type="text/javascript">
+	
+	const click = document.getElementById('click');
+	const check = document.getElementById('check');
+
+	const cards_value = ['as',2,3,4,5,6,7,8,9,10,'walet','dama','krol'];
+	const cards_color = ['trefl','karo', 'serce','pik'];
+	
+	var opponent_card = 0;
+	var card = 0;
+	var i =0;
+
+	function cardObjectConstructor(cards_color,cards_value){
+
+		this.color = cards_color;
+		this.value = cards_value;
+	}	
+
+	function shuffleArray(deck) {
+    
+    	for (var i=0; i<deck.length; i++) { 
+        	
+        	var j = Math.floor(Math.random() * deck.length);
+        	var temp = deck[i];
+        	deck[i] = deck[j]; 
+        	deck[j] = temp; 
+    	}
+    
+
+   	return deck;
+	
+	}
+
+	function createCardObject(cards_color,cards_value){
+		var n = 0;
+		var cards_objects_array = [];
+
+		for (var i = 0; i<cards_color.length;i++ ){
+		
+			for (var j = 0; j<cards_value.length;j++){
+				
+				cards_objects_array[n] = new cardObjectConstructor(cards_color[i], cards_value[j]);
+			n++;	
+			}
+
+		}
+
+		var shuffled_deck = shuffleArray(cards_objects_array); 
+		return shuffled_deck;
+	} 
+
+	var deck = createCardObject(cards_color, cards_value);
+
+	function getCard(deck){
+
+		var value = createCard(deck[i]);
+		i++;
+		return value
+	}
+
+	function createCard(deck)
+	{
+		//var card = document.createElement('img');
+		//card.src = "cards/"+deck.color+"/"+deck.value+".jpg"; 
+		alert('Wylosowana karta to: '+deck.value+' '+deck.color);	
+		deck_value = countValueCards(deck);
+		return deck_value;
+	}
+
+	function countValueCards(deck){
+
+		if (typeof deck.value != 'number') {
+			
+			switch(deck.value){
+				
+				case 'walet':
+					deck.value = 10
+				break;
+
+				case 'dama':
+					deck.value = 10
+				break;
+
+				case 'krol':
+					deck.value = 10
+				break;
+
+				case 'as':
+					deck.value = 11
+				break;
+			}
+		}
+		return deck.value;
+	}
+	function checkValues(cards, opponent_cards){
+
+	
+		if (opponent_cards>cards) {
+
+			alert('Przegrałeś. Przeciwnik był bliżej liczby 21');
+			location.reload();
+		}
+		else{
+			alert('Udało się, oczka nie trafiłeś, ale byłeś blisko!');
+			location.reload();
+		}
+
+	}
+	click.addEventListener('click', function(){
+
+		var card_value = getCard(deck);
+		card = card + card_value;
+		alert('Łączna wartość moich kart: '+card);
+		if (card == 21) {
+			alert('Gratulacje, trafiłeś oczko!');
+			location.reload();
+			
+		}
+		if (card>21) {
+			let result = card - 21;
+			alert('Przegrałeś, przekroczyłeś limit o: '+ result);
+			location.reload();
+			
+		}
+
+		var opponent_card_value = getCard(deck);
+		opponent_card = opponent_card + opponent_card_value;
+		alert('Łączna wartość kart przeciwnika: '+ opponent_card);
+		if (opponent_card == 21){
+			alert('Przeciwnik trafił oczko!');
+			location.reload();
+		}
+		if (opponent_card >21 ) {
+			let result = opponent_card -21;
+			alert('Gratulacje, przeciwnik przekroczył limit o: '+ result);
+			location.reload();
+			
+		}
+	});
+
+	check.addEventListener('click', function(){
+		checkValues(card, opponent_card);
+	});
+	</script>
+</body>
+</html>
