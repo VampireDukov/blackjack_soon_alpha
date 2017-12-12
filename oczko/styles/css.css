@@ -2,14 +2,15 @@ body{
 	text-align: center;
 	font-family: sans-serif;
 	color: purple;
+	max-width: 1600px;
 }
 img.cards{
 	height: 170px;
 	padding: 5px 5px 5px 5px;
 	border-style: dashed;
 	border-width: 2px;
-	margin-left: 2px;
-	margin-right: 2px;
+	margin-left: 4px;
+	margin-right: 4px;
 }
 span{
 
@@ -20,6 +21,10 @@ span{
 div.table{
 	padding-top: 10px;
 	height: 200px;
+	width: 50%;
+	margin: auto;
+	border-style: dashed;
+	border-width: 2px;
 
 }
 div.buttons{
