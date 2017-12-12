@@ -1,7 +1,30 @@
 body{
 	text-align: center;
+	font-family: sans-serif;
+	color: purple;
+}
+img.cards{
+	height: 170px;
+	padding: 5px 5px 5px 5px;
+	border-style: dashed;
+	border-width: 2px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+span{
+
+	font-size: 2em;
+	display: block;
 }
 
+div.table{
+	padding-top: 10px;
+	height: 200px;
+
+}
+div.buttons{
+	height: 50px;
+}
 button {
   background: #3498db;
   background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
@@ -17,6 +40,7 @@ button {
   font-size: 20px;
   padding: 10px 30px 10px 30px;
   text-decoration: none;
+  width: 300px;
 }
 
 button:hover {
