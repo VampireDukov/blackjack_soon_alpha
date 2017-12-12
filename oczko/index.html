@@ -2,8 +2,9 @@
 <html>
 <head>
 	<title>Gra w oczko</title>
-	<meta charset="utf-8">.
+	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="styles/css.css">
+	
 </head>
 <body>
 <header>
@@ -13,8 +14,14 @@
 </header>	
 
 <section id="content">
-	<button id="click">Wybierz kartę!</button>
-	<button id="check">Sprawdź!</button>	
+	<span id="my_result">0</span>
+	<div id="my_table" class="table"></div>
+	<div class="buttons">	
+		<button id="click">Wybierz kartę!</button>
+		<button id="check">Spasuj</button>
+	</div>
+	<div id="opponent_table" class="table"></div>
+	<span id="opponent_result">0</span>	
 </section>
 
 <script type="text/javascript">
@@ -22,10 +29,20 @@
 	const click = document.getElementById('click');
 	const check = document.getElementById('check');
 
+	var my_table = document.getElementById('my_table');
+	var my_result = document.getElementById('my_result');
+
+	var opponent_table = document.getElementById('opponent_table');
+	var opponent_result = document.getElementById('opponent_result');
+
+	var opp = 0;
+	var opp_win;
+	var me, me_win;
+
 	const cards_value = ['as',2,3,4,5,6,7,8,9,10,'walet','dama','krol'];
 	const cards_color = ['trefl','karo', 'serce','pik'];
 	
-	var opponent_card = 0;
+
 	var card = 0;
 	var i =0;
 
@@ -70,19 +87,21 @@
 
 	var deck = createCardObject(cards_color, cards_value);
 
-	function getCard(deck){
+	function getCard(deck,target){
 
-		var value = createCard(deck[i]);
+		var value = createCard(deck[i],target);
 		i++;
 		return value
 	}
 
-	function createCard(deck)
+	function createCard(deck,target)
 	{
-		//var card = document.createElement('img');
-		//card.src = "cards/"+deck.color+"/"+deck.value+".jpg"; 
-		alert('Wylosowana karta to: '+deck.value+' '+deck.color);	
+		var card = document.createElement('img');
+		card.src = "cards/"+deck.color+"/"+deck.value+".jpg"; 
+		card.classList.add('cards');
+		
 		deck_value = countValueCards(deck);
+		target.appendChild(card);
 		return deck_value;
 	}
 
@@ -120,46 +139,98 @@
 			location.reload();
 		}
 		else{
-			alert('Udało się, oczka nie trafiłeś, ale byłeś blisko!');
-			location.reload();
+			alert('Gratulacje, byłeś bliżej!');
 		}
 
 	}
+
+	function chooseCard(deck,table,result){
+		var card_value = getCard(deck,table);
+		result.textContent = card_value + parseInt(result.textContent);
+		return result.textContent;
+	}
+
+	function checkWinner(player){
+
+		if(player===21){
+			return true;
+		}
+		else if(player>21){
+			return false;
+		}
+		else{
+			return player;
+		}
+	}
+
 	click.addEventListener('click', function(){
 
-		var card_value = getCard(deck);
-		card = card + card_value;
-		alert('Łączna wartość moich kart: '+card);
-		if (card == 21) {
-			alert('Gratulacje, trafiłeś oczko!');
-			location.reload();
+		me = chooseCard(deck,my_table,my_result);
+		me_win = checkWinner(me);
+		
+		if(opp<17){
+			opp = chooseCard(deck,opponent_table,opponent_result);		
+			opp_win = checkWinner(opp);
+		}
+		if(me_win==true || me == 21){
+			alert('Gratulacje! Trafiłeś oczko!');
+			setTimeout(function(){
+				location.reload();
+			},1500);
+		}
+		else if (me_win == false || me>21) {
+			alert("Spróbuj jeszcze raz, przekroczyłeś limit");
+			setTimeout(function(){
+				location.reload();
+			},1500);
+		}
+		else if(opp_win==true || opp ==21){
+			alert('Niestety przeciwnik trafił oczko');
+			setTimeout(function(){
+				location.reload();
+			},1500);
+		}
+		else if(opp_win==false || opp>21){
+			alert('Przeciwnik przekroczył limit, wygrałeś!');
+			setTimeout(function(){
+				location.reload();
+			},1500);
 			
 		}
-		if (card>21) {
-			let result = card - 21;
-			alert('Przegrałeś, przekroczyłeś limit o: '+ result);
-			location.reload();
-			
-		}
+		
 
-		var opponent_card_value = getCard(deck);
-		opponent_card = opponent_card + opponent_card_value;
-		alert('Łączna wartość kart przeciwnika: '+ opponent_card);
-		if (opponent_card == 21){
-			alert('Przeciwnik trafił oczko!');
-			location.reload();
+
+	});
+
+	check.addEventListener('click',function(){
+
+		while(opp<=16){
+
+				opp = chooseCard(deck,opponent_table,opponent_result);
+				
+		}	
+		opp_win = checkWinner(opp);
+		if(me_win === opp_win){
+			alert('Mamy remis');	
+			setTimeout(function(){
+				location.reload();
+			},1500);	
 		}
-		if (opponent_card >21 ) {
-			let result = opponent_card -21;
-			alert('Gratulacje, przeciwnik przekroczył limit o: '+ result);
-			location.reload();
-			
+		else if(me_win>opp_win){
+			alert('Oczka nie trafiłeś, ale byłeś bliżej. Wygrałeś!');
+			setTimeout(function(){
+				location.reload();
+			},1500);
+		}
+		else
+		{
+			alert('Może następnym razem będzie lepiej? Przeciwnik wygrał.');
+			setTimeout(function(){
+				location.reload();
+			},1500);
 		}
 	});
 
-	check.addEventListener('click', function(){
-		checkValues(card, opponent_card);
-	});
 	</script>
 </body>
 </html>
