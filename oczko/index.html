@@ -29,11 +29,11 @@
 	const click = document.getElementById('click');
 	const check = document.getElementById('check');
 
-	var my_table = document.getElementById('my_table');
-	var my_result = document.getElementById('my_result');
+	const my_table = document.getElementById('my_table');
+	const my_result = document.getElementById('my_result');
 
-	var opponent_table = document.getElementById('opponent_table');
-	var opponent_result = document.getElementById('opponent_result');
+	const opponent_table = document.getElementById('opponent_table');
+	const opponent_result = document.getElementById('opponent_result');
 
 	var opp = 0;
 	var opp_win;
@@ -163,6 +163,16 @@
 		}
 	}
 
+	function removeEvent(){
+
+		click.removeEventListener('click', chooseCard);
+		click.removeEventListener('click', checkWinner);
+
+		check.removeEventListener('click', checkWinner);
+		
+		location.reload();
+	}
+
 	click.addEventListener('click', function(){
 
 		me = chooseCard(deck,my_table,my_result);
@@ -175,26 +185,26 @@
 		if(me_win==true || me == 21){
 			alert('Gratulacje! Trafiłeś oczko!');
 			setTimeout(function(){
-				location.reload();
-			},1500);
+				removeEvent();
+			},1000);
 		}
 		else if (me_win == false || me>21) {
 			alert("Spróbuj jeszcze raz, przekroczyłeś limit");
 			setTimeout(function(){
-				location.reload();
-			},1500);
+				removeEvent();
+			},1000);;
 		}
 		else if(opp_win==true || opp ==21){
 			alert('Niestety przeciwnik trafił oczko');
 			setTimeout(function(){
-				location.reload();
-			},1500);
+				removeEvent();
+			},1000);
 		}
 		else if(opp_win==false || opp>21){
 			alert('Przeciwnik przekroczył limit, wygrałeś!');
 			setTimeout(function(){
-				location.reload();
-			},1500);
+				removeEvent();
+			},1000);
 			
 		}
 		
@@ -213,21 +223,21 @@
 		if(me_win === opp_win){
 			alert('Mamy remis');	
 			setTimeout(function(){
-				location.reload();
-			},1500);	
+				removeEvent();
+			},1000);	
 		}
 		else if(me_win>opp_win){
 			alert('Oczka nie trafiłeś, ale byłeś bliżej. Wygrałeś!');
 			setTimeout(function(){
-				location.reload();
-			},1500);
+				removeEvent();
+			},1000);
 		}
 		else
 		{
 			alert('Może następnym razem będzie lepiej? Przeciwnik wygrał.');
 			setTimeout(function(){
-				location.reload();
-			},1500);
+				removeEvent();
+			},1000);
 		}
 	});
 
