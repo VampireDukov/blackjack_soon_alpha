@@ -1,8 +1,10 @@
 body{
 	text-align: center;
 	font-family: sans-serif;
-	color: purple;
+	color: white;
 	max-width: 1600px;
+	margin: auto;
+	background-color: #008000;
 }
 img.cards{
 	height: 170px;
@@ -21,39 +23,36 @@ span{
 div.table{
 	padding-top: 10px;
 	height: 200px;
-	width: 50%;
+	width: 65%;
 	margin: auto;
 	border-style: dashed;
 	border-width: 2px;
+	margin-bottom: 5px;
+	border-radius: 7px;
 
 }
 div.buttons{
 	height: 50px;
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
 button {
-  background: #3498db;
-  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-  background-image: -o-linear-gradient(top, #3498db, #2980b9);
-  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  background: #008000;
+  cursor: pointer;
   -webkit-border-radius: 7;
   -moz-border-radius: 7;
   border-radius: 7px;
   font-family: Arial;
-  color: #ffffff;
+  color: white;
   font-size: 20px;
   padding: 10px 30px 10px 30px;
   text-decoration: none;
   width: 300px;
+  box-shadow: none;
 }
 
 button:hover {
-  background: #3cb0fd;
-  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
-  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
-  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
-  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
-  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  background: #004d00;
+
   text-decoration: none;
 }
