@@ -130,19 +130,7 @@
 		}
 		return deck.value;
 	}
-	function checkValues(cards, opponent_cards){
 
-	
-		if (opponent_cards>cards) {
-
-			alert('Przegrałeś. Przeciwnik był bliżej liczby 21');
-			location.reload();
-		}
-		else{
-			alert('Gratulacje, byłeś bliżej!');
-		}
-
-	}
 
 	function chooseCard(deck,table,result){
 		var card_value = getCard(deck,table);
