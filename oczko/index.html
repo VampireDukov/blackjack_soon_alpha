@@ -4,7 +4,7 @@
 	<title>Gra w oczko</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="styles/css.css">
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <header>
@@ -12,7 +12,20 @@
 	<h1>Gra w oczko, traf łączną liczbę 21, aby wygrać!</h1>
 
 </header>	
-
+<div class="message">
+	<h3>Używamy cookie!!</h3>
+	<h4>Hej, znasz zasady?</h4>
+	<div class="list">
+		<ul>
+			<li>Bezsporna wygrana to wynik 21</li>
+			<li>Jeśli Ty lub Twój przeciwnik nie traficie 21, wygra ten, który był bliżej</li>
+			<li>Wynik wyższy niż 21 automatycznie oznacza przegraną!</li>
+			<li>Figury mają wartość 10, jak w BlackJacku!</li>
+		</ul>
+	</div>	
+	<h3>Powodzenia!</h3>
+	<button class="close">Zamknij</button>
+</div>
 <section id="content">
 	<span id="my_result">0</span>
 	<div id="my_table" class="table"></div>
@@ -45,6 +58,62 @@
 
 	var card = 0;
 	var i =0;
+
+	
+	function setCookie(cname, cvalue, exdays) {
+   
+    	var d = new Date();
+    	d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    	var expires = "expires="+ d.toUTCString();
+    	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	}
+
+	function getCookie(cname) {
+    
+    	var name = cname + "=";
+    	var decodedCookie = decodeURIComponent(document.cookie);
+    	var ca = decodedCookie.split(';');
+   
+    	for(var i = 0; i <ca.length; i++) {
+        
+        	var c = ca[i];
+        	
+        	while (c.charAt(0) == ' ') {
+            
+            	c = c.substring(1);
+        
+        	}
+        	
+        	if (c.indexOf(name) == 0) {
+        
+            	return c.substring(name.length, c.length);
+        	}
+    	}
+    	return "";
+	}
+
+
+	function checkCookie(){
+	
+		var check = getCookie('user');	
+	
+		if (check != 'game') {
+			setCookie('user','game',180);
+			$('.message').fadeIn(600);
+			$('.close').click(function(){
+				$('.message').fadeOut('slow');
+			});
+		}
+		
+	}
+
+
+checkCookie();
+
+
+
+
+
 
 	function cardObjectConstructor(cards_color,cards_value){
 
@@ -101,9 +170,14 @@
 		card.classList.add('cards');
 		
 		deck_value = countValueCards(deck);
+
 		target.appendChild(card);
+
+		
+		$(card).fadeIn('slow');
 		return deck_value;
 	}
+	
 
 	function countValueCards(deck){
 
@@ -167,35 +241,40 @@
 		me_win = checkWinner(me);
 		
 		if(opp<17){
-			opp = chooseCard(deck,opponent_table,opponent_result);		
-			opp_win = checkWinner(opp);
+			setTimeout(function(){
+				opp = chooseCard(deck,opponent_table,opponent_result);		
+				opp_win = checkWinner(opp);	
+			},400);
+			
 		}
+	setTimeout(function(){
 		if(me_win==true || me == 21){
 			alert('Gratulacje! Trafiłeś oczko!');
 			setTimeout(function(){
 				removeEvent();
-			},1000);
+			},700);
 		}
 		else if (me_win == false || me>21) {
 			alert("Spróbuj jeszcze raz, przekroczyłeś limit");
 			setTimeout(function(){
 				removeEvent();
-			},1000);;
+			},700);;
 		}
 		else if(opp_win==true || opp ==21){
 			alert('Niestety przeciwnik trafił oczko');
 			setTimeout(function(){
 				removeEvent();
-			},1000);
+			},700);
 		}
 		else if(opp_win==false || opp>21){
 			alert('Przeciwnik przekroczył limit, wygrałeś!');
 			setTimeout(function(){
 				removeEvent();
-			},1000);
+			},700);
 			
 		}
-		
+	},500);
+			
 
 
 	});
@@ -212,22 +291,23 @@
 			alert('Mamy remis');	
 			setTimeout(function(){
 				removeEvent();
-			},1000);	
+			},700);	
 		}
 		else if(me_win>opp_win){
 			alert('Oczka nie trafiłeś, ale byłeś bliżej. Wygrałeś!');
 			setTimeout(function(){
 				removeEvent();
-			},1000);
+			},700);
 		}
 		else
 		{
 			alert('Może następnym razem będzie lepiej? Przeciwnik wygrał.');
 			setTimeout(function(){
 				removeEvent();
-			},1000);
+			},700);
 		}
 	});
+
 
 	</script>
 </body>
