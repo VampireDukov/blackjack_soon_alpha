@@ -12,6 +12,7 @@
 	<h1>Gra w oczko, traf łączną liczbę 21, aby wygrać!</h1>
 
 </header>	
+<div class="message_info"><span id="info" class="message_info">Tutaj będą wyświeltane komunikaty o przegranej bądź wygranej</span></div>
 <div class="message">
 	<h3>Używamy cookie!!</h3>
 	<h4>Hej, znasz zasady?</h4>
@@ -32,6 +33,7 @@
 	<div class="buttons">	
 		<button id="click">Wybierz kartę!</button>
 		<button id="check">Spasuj</button>
+		
 	</div>
 	<div id="opponent_table" class="table"></div>
 	<span id="opponent_result">0</span>	
@@ -55,6 +57,7 @@
 	const cards_value = ['as',2,3,4,5,6,7,8,9,10,'walet','dama','krol'];
 	const cards_color = ['trefl','karo', 'serce','pik'];
 	
+	var message_info = document.getElementById('info');
 
 	var card = 0;
 	var i =0;
@@ -99,9 +102,9 @@
 	
 		if (check != 'game') {
 			setCookie('user','game',180);
-			$('.message').fadeIn(600);
+			$('.message').fadeIn(400);
 			$('.close').click(function(){
-				$('.message').fadeOut('slow');
+				$('.message').fadeOut(400);
 			});
 		}
 		
@@ -174,7 +177,7 @@ checkCookie();
 		target.appendChild(card);
 
 		
-		$(card).fadeIn('slow');
+		$(card).fadeIn(1000);
 		return deck_value;
 	}
 	
@@ -225,15 +228,7 @@ checkCookie();
 		}
 	}
 
-	function removeEvent(){
 
-		click.removeEventListener('click', chooseCard);
-		click.removeEventListener('click', checkWinner);
-
-		check.removeEventListener('click', checkWinner);
-		
-		location.reload();
-	}
 
 	click.addEventListener('click', function(){
 
@@ -244,36 +239,36 @@ checkCookie();
 			setTimeout(function(){
 				opp = chooseCard(deck,opponent_table,opponent_result);		
 				opp_win = checkWinner(opp);	
-			},400);
+			},600);
 			
 		}
 	setTimeout(function(){
 		if(me_win==true || me == 21){
-			alert('Gratulacje! Trafiłeś oczko!');
+			message_info.textContent = 'Gratulacje! Trafiłeś oczko!';
 			setTimeout(function(){
-				removeEvent();
-			},700);
+				location.reload();
+			},2200);
 		}
 		else if (me_win == false || me>21) {
-			alert("Spróbuj jeszcze raz, przekroczyłeś limit");
+			message_info.textContent = "Spróbuj jeszcze raz, przekroczyłeś limit";
 			setTimeout(function(){
-				removeEvent();
-			},700);;
+				location.reload();
+			},2200);;
 		}
 		else if(opp_win==true || opp ==21){
-			alert('Niestety przeciwnik trafił oczko');
+			message_info.textContent ='Niestety przeciwnik trafił oczko';
 			setTimeout(function(){
-				removeEvent();
-			},700);
+				location.reload();
+			},2200);
 		}
 		else if(opp_win==false || opp>21){
-			alert('Przeciwnik przekroczył limit, wygrałeś!');
+			message_info.textContent = 'Przeciwnik przekroczył limit, wygrałeś!';
 			setTimeout(function(){
-				removeEvent();
-			},700);
+				location.reload();
+			},2200);
 			
 		}
-	},500);
+	},600);
 			
 
 
@@ -288,23 +283,23 @@ checkCookie();
 		}	
 		opp_win = checkWinner(opp);
 		if(me_win === opp_win){
-			alert('Mamy remis');	
+			message_info.textContent = 'Mamy remis';	
 			setTimeout(function(){
-				removeEvent();
-			},700);	
+				location.reload();;
+			},2200);	
 		}
 		else if(me_win>opp_win){
-			alert('Oczka nie trafiłeś, ale byłeś bliżej. Wygrałeś!');
+			message_info.textContent = 'Oczka nie trafiłeś, ale byłeś bliżej. Wygrałeś!';
 			setTimeout(function(){
-				removeEvent();
-			},700);
+				location.reload();
+			},2200);
 		}
 		else
 		{
-			alert('Może następnym razem będzie lepiej? Przeciwnik wygrał.');
+			message_info.textContent = 'Może następnym razem będzie lepiej? Przeciwnik wygrał.';
 			setTimeout(function(){
-				removeEvent();
-			},700);
+				location.reload();
+			},2200);
 		}
 	});
 
